@@ -445,11 +445,15 @@ The job will:
 ### Step 5.1: Check Progress
 
 ```bash
-# Count completed stations
-grep -l "final.ini" cfgfiles/*.ini | wc -l
+# Quick status table
+bash status.sh
 
-# Count output files
-ls output/*.sno | wc -l
+# Output:
+# | Status         | Count  | %     |
+# |----------------|--------|-------|
+# | ✅ Completed    |   2527 | 13.3% |
+# | 🔄 In progress  |    109 | 0.6%  |
+# | ⏳ Not started  |  16352 | 86.1% |
 
 # Check specific station depth
 grep HS_Last output/VIR_1_100_100.sno
@@ -614,9 +618,8 @@ bash update_station_configs.sh
 # Run spinup
 sbatch job.sbatch
 
-# Check progress
-grep -l "final.ini" cfgfiles/*.ini | wc -l   # Completed
-ls output/*.sno | wc -l                       # With output
+# Check progress (quick status table)
+bash status.sh
 
 # Check specific station
 grep HS_Last output/VIR_1_100_100.sno
