@@ -1,53 +1,37 @@
 #!/bin/bash
 
 #
-# For SLURM
+# For SLURM - CSCS Alps
+# Single node parallel execution for spinup
 #
-#SBATCH --nodes=1				#	Number of requested nodes per task
-#SBATCH --account=xxxxxxxx			#	Account
-#SBATCH --time=00:10:00			#	Max wall time
-#SBATCH --qos=normal				#	Specify QOS
-#SBATCH --partition=shas			#	Specify Summit haswell nodes
-#SBATCH --ntasks=1				#	Number of tasks per job
-#SBATCH --job-name=spinup			#	Job submission name
-#SBATCH --output=./sbatch_out_files/%x.%j.out	#	Output file name with Job ID
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=someuser@someaddress.edu
-#SBATCH --array=1-1
+#SBATCH --nodes=1
+#SBATCH --account=s1329
+#SBATCH --time=24:00:00
+#SBATCH --partition=normal
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=128
+#SBATCH --mem=0
+#SBATCH --job-name=spinup
+#SBATCH --output=logs/spinup_%j.out
+#SBATCH --error=logs/spinup_%j.err
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=sergi.gonzalez@slf.ch
+#SBATCH --uenv=prgenv-gnu/24.11:v2
+#SBATCH --view=spack
 
-#
-# For PBS
-#
-#PBS -S /bin/bash				#	Set bash as shell
-#PBS -N spinup					#	Job name
-#PBS -A PXXXXXXXX				#	Account
-#PBS -l walltime=0:10:00			#	Max wall time
-#PBS -q regular				#	Specify compute nodes type
-#PBS -j oe					#	stdout/stderr
-#PBS -m abe					#	email settings
-#PBS -M someuser@someaddress.edu
-#PBS -l select=1:ncpus=1:mpiprocs=0		#	Number of request nodes per task
-#PBS -J 1-1
+# Change to working directory
+cd /capstor/scratch/cscs/gsergi/CRYOWRF_ANT_CLIM/snowpack/Scripts/Spinup
 
-#
-# Check for job arrays:
-#
-if [ -n "${SLURM_ARRAY_TASK_ID}" ]; then
-	command1=$(sed -n ${SLURM_ARRAY_TASK_ID}p to_exec.lst)
-elif [ -n "${PBS_ARRAY_INDEX}" ]; then
-	command1=$(sed -n ${PBS_ARRAY_INDEX}p to_exec.lst)
-else
-	command1=""
-fi
+echo "Starting spinup at $(date)"
 
-#
-# Execute job
-#
-if [ -n "${command1}" ]; then
-	# Case using job arrays with a job manager
-	eval ${command1}
-	echo ${command1} >> finished.lst
-else
-	# Other cases
-	bash to_exec.lst
-fi
+# Filter out already completed stations before running
+echo "Filtering completed stations..."
+bash filter_completed.sh
+
+echo "Running stations in parallel (128 at a time) on single node..."
+
+# Run spinup tasks in parallel
+# Each SNOWPACK run is relatively light, so we can run 128 in parallel
+cat to_exec.lst | parallel -j 128
+
+echo "Finished spinup at $(date)"

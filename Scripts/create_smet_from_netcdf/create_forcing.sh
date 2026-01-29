@@ -41,11 +41,9 @@ else
 	echo "	Year ${yr}-${mm}"
 fi
 
-# Module loading and basic setup
+# Basic setup (uenv provides environment via SBATCH directives)
 mkdir -p log
 export LD_LIBRARY_PATH=$(pwd)/usr/lib/:${LD_LIBRARY_PATH}
-module purge
-ml intel; ml proj; ml netcdf
 
 # Create output directory
 rm -rf output/${model}_${yr}${mm}
@@ -57,15 +55,28 @@ cd io_files
 # Retrieve directory with netCDF and create file links, if netCDF files are split by year
 flag_netcdf_files_are_linked=0
 grid2dpath=$(grep ^GRID2DPATH ./${model}.ini | mawk -F= '{sub(/#.*/,"",$0); sub(/;.*/,"",$0); gsub(/^[ \t]+/,"",$NF); gsub(/[ \t]+$/,"",$NF); print $NF}')	# Use sub to remove comments and gsub to remove trailing and leading white spaces
-list_of_nc_files=$(find ${grid2dpath} -name "*${yr}*")
-if [ ! -z "${list_of_nc_files}" ]; then
-	# Create dir to link the NetCDF files
+
+# Check if year subdirectory exists (for ERA5-style data organization)
+if [ -d "${grid2dpath}/${yr}" ]; then
+	# Year subdirectory exists, link files from inside it
 	flag_netcdf_files_are_linked=1
 	rm -rf ../input/${model}_${yr}${mm}
 	mkdir -p ../input/${model}_${yr}${mm}
-	for ncf in ${list_of_nc_files}; do
+	for ncf in ${grid2dpath}/${yr}/*.nc; do
 		ln -sr ${ncf} ../input/${model}_${yr}${mm}/
 	done
+else
+	# Fall back to original behavior: find files with year in the name
+	list_of_nc_files=$(find ${grid2dpath} -name "*${yr}*" -type f)
+	if [ ! -z "${list_of_nc_files}" ]; then
+		# Create dir to link the NetCDF files
+		flag_netcdf_files_are_linked=1
+		rm -rf ../input/${model}_${yr}${mm}
+		mkdir -p ../input/${model}_${yr}${mm}
+		for ncf in ${list_of_nc_files}; do
+			ln -sr ${ncf} ../input/${model}_${yr}${mm}/
+		done
+	fi
 fi
 
 # Create new ini file for each year

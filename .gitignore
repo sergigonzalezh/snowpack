@@ -1,9 +1,38 @@
+# ============================================
+# SNOWPACK Repository - Git Ignore
+# ============================================
+
+# Build artifacts
 CMakeFiles/
-#*.cmake
 MakeFile
 lib/
 bin/
 install_manifest.txt
 CMakeCache.txt
-.DS_Store
+
+# Generated source files
 Source/meteoio/meteoio/IOHandler.cc
+
+# OS files
+.DS_Store
+*.swp
+*~
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.so
+*.c
+!Scripts/Python/Cython/*.c
+
+# Large data files (general)
+*.nc
+*.smet
+*.sno
+*.pro
+
+# Logs
+*.log
+*.out
+*.err

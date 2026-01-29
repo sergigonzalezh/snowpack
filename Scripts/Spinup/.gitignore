@@ -1,0 +1,29 @@
+# ============================================
+# SNOWPACK Antarctic Spinup - Git Ignore
+# ============================================
+
+# Generated data directories (large, reproducible)
+smet/
+output/
+current_snow/
+current_snow_backup/
+current_snow_backup2/
+snow_init/
+log/
+logs/
+cfgfiles/
+
+# Generated execution lists
+to_exec.lst
+finished.lst
+
+# Test files - not needed for production
+test_*.sh
+test_*.sbatch
+*_test.ini
+*_test.sbatch
+monitor_test.sh
+job_test.sbatch
+
+# Keep placeholder files
+!.gitkeep

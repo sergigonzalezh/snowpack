@@ -10,12 +10,12 @@
 
 
 # Specify the SNOWPACK binary to use
-which_snowpack="../../Source/snowpack/bin/snowpack"
+which_snowpack="/users/gsergi/ALPINE3D/bin/snowpack"
 
 
 # Specify the miminum simulated snow/firn depth before considering a spinup procedure finished
 # Make sure that this value is smaller than MAX_SIMULATED_HS in the ini file, otherwise you'll get an infinite spinup loop!
-min_sim_depth=150
+min_sim_depth=15
 
 
 # Here, an awk script can be provided, which does additional checks. The script should output 1 if spinup has been achieved, and 0 otherwise. Leave empty ("") to only check min_sim_depth.

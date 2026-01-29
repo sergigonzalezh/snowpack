@@ -1,55 +1,30 @@
 #!/bin/bash
 
 #
-# For SLURM
+# For SLURM on CSCS Alps - Single node parallel execution
 #
-#SBATCH --nodes=1				#	Number of requested nodes per task
-#SBATCH --account=xxxxxxxx			#	Account
-#SBATCH --time=00:10:00				#	Max wall time
-#SBATCH --qos=normal				#	Specify testing QOS
-#SBATCH --partition=shas			#	Specify Summit haswell nodes
-#SBATCH --ntasks=1				#	Number of tasks per job
-##SBATCH --array=1-40
-#SBATCH --array=1-1
+#SBATCH --uenv=prgenv-gnu/24.11:v2
+#SBATCH --view=spack
+#SBATCH --nodes=1
+#SBATCH --account=s1329
+#SBATCH --time=24:00:00
+#SBATCH --partition=normal
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=0
 
-#SBATCH --job-name=smet_creation		#	Job submission name
-#SBATCH --output=./sbatch_out_files/%x.%j.out	#	Output file name with Job ID
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=someuser@someaddress.edu
+#SBATCH --job-name=smet_creation
+#SBATCH --output=./sbatch_out_files/%x.%j.out
+#SBATCH --error=./sbatch_out_files/%x.%j.err
 
-#
-# For PBS
-#
-#PBS -S /bin/bash				#	Set bash as shell
-#PBS -N CESM_icesheets				#	Job name
-#PBS -A PXXXXXXXX				#	Account
-#PBS -l walltime=0:10:00			#	Max wall time
-#PBS -q regular					#	Specify compute nodes type
-#PBS -j oe					#	stdout/stderr
-#PBS -m abe					#	email settings
-#PBS -M someuser@someaddress.edu
-#PBS -l select=1:ncpus=1:mpiprocs=0		#	Number of request nodes per task
-##PBS -J 1-86
-#PBS -J 1-1
+cd /capstor/scratch/cscs/gsergi/CRYOWRF_ANT_CLIM/snowpack/Scripts/create_smet_from_netcdf
 
-#
-# Check for job arrays:
-#
-if [ -n "${SLURM_ARRAY_TASK_ID}" ]; then
-	command1=$(sed -n ${SLURM_ARRAY_TASK_ID}p to_exec.lst)
-elif [ -n "${PBS_ARRAY_INDEX}" ]; then
-	command1=$(sed -n ${PBS_ARRAY_INDEX}p to_exec.lst)
-else
-	command1=""
-fi
+echo "Starting SMET extraction at $(date)"
+echo "Running years in parallel (4 at a time) on single node..."
+echo "Note: Each merged NetCDF is ~12GB, so limiting parallelism to avoid OOM"
 
-#
-# Execute job
-#
-if [ -n "${command1}" ]; then
-	# Case using job arrays with a job manager
-	eval ${command1}
-else
-	# Other cases
-	bash to_exec.lst
-fi
+# Run commands in parallel, limited to 4 concurrent jobs to avoid OOM
+# Each process loads ~12GB NetCDF files, so 4 x 12GB = ~48GB memory needed
+cat to_exec.lst | parallel -j 4
+
+echo "Finished SMET extraction at $(date)"

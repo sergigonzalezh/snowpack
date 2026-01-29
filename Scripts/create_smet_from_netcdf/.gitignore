@@ -1,15 +1,36 @@
-# Don't track files with these exstensions
+# ============================================
+# Create SMET from NetCDF - Git Ignore
+# ============================================
+
+# Don't track files with these extensions
 **.smet
 
 # Don't track these directories
 sbatch_out_files/*
 log/*
+logs/*
 output/*
+input/*
 io_files/*
 
-# File exceptions
+# Don't track execution lists
+to_exec.lst
+
+# Binary symlinks
+meteoio_timeseries
+
+# Backup files
+*.backup
+
+# Test files
+test_*.sbatch
+
+# File exceptions - keep template configs
 !sbatch_out_files/.gitkeep
 !io_files/base.ini
+!io_files/ERA5.ini
 !io_files/MERRA-2.ini
 !io_files/CESM.ini
 !io_files/RACMO2.ini
+!io_files/COSMO-1.ini
+!io_files/COSMO-2.ini

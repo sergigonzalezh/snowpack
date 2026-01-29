@@ -1,11 +1,11 @@
 #!/bin/bash
 
 year_start=1980
-year_end=2019
+year_end=2024
 permonth=0		# =1: do data extraction per year/month. =0: do data extraction per year
 outputinterval=0	# =0: files are written only after all time steps have been processed.
 			# outputinterval>0: output is written after <outputinterval> timesteps, reducing memory consumption (requires APPEND mode enabled in output plugin)
-model="MERRA-2"
+model="ERA5"
 
 rm -f to_exec.lst
 
