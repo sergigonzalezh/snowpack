@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# Postprocess SMET files - concatenate all years per station
+# Single node execution
+#
+#SBATCH --job-name=smet_postprocess
+#SBATCH --output=logs/postprocess_%j.out
+#SBATCH --error=logs/postprocess_%j.err
+#SBATCH --time=24:00:00
+#SBATCH --partition=normal
+#SBATCH --account=s1329
+#SBATCH --nodes=1
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=8G
+
+cd /capstor/scratch/cscs/gsergi/CRYOWRF_ANT_CLIM/snowpack/Scripts/create_smet_from_netcdf
+
+echo "Starting postprocessing at $(date)"
+bash postprocess.sh ERA5
+echo "Finished postprocessing at $(date)"

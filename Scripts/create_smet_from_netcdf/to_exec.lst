@@ -1,40 +1,45 @@
-bash create_forcing.sh MERRA-2 1980
-bash create_forcing.sh MERRA-2 1981
-bash create_forcing.sh MERRA-2 1982
-bash create_forcing.sh MERRA-2 1983
-bash create_forcing.sh MERRA-2 1984
-bash create_forcing.sh MERRA-2 1985
-bash create_forcing.sh MERRA-2 1986
-bash create_forcing.sh MERRA-2 1987
-bash create_forcing.sh MERRA-2 1988
-bash create_forcing.sh MERRA-2 1989
-bash create_forcing.sh MERRA-2 1990
-bash create_forcing.sh MERRA-2 1991
-bash create_forcing.sh MERRA-2 1992
-bash create_forcing.sh MERRA-2 1993
-bash create_forcing.sh MERRA-2 1994
-bash create_forcing.sh MERRA-2 1995
-bash create_forcing.sh MERRA-2 1996
-bash create_forcing.sh MERRA-2 1997
-bash create_forcing.sh MERRA-2 1998
-bash create_forcing.sh MERRA-2 1999
-bash create_forcing.sh MERRA-2 2000
-bash create_forcing.sh MERRA-2 2001
-bash create_forcing.sh MERRA-2 2002
-bash create_forcing.sh MERRA-2 2003
-bash create_forcing.sh MERRA-2 2004
-bash create_forcing.sh MERRA-2 2005
-bash create_forcing.sh MERRA-2 2006
-bash create_forcing.sh MERRA-2 2007
-bash create_forcing.sh MERRA-2 2008
-bash create_forcing.sh MERRA-2 2009
-bash create_forcing.sh MERRA-2 2010
-bash create_forcing.sh MERRA-2 2011
-bash create_forcing.sh MERRA-2 2012
-bash create_forcing.sh MERRA-2 2013
-bash create_forcing.sh MERRA-2 2014
-bash create_forcing.sh MERRA-2 2015
-bash create_forcing.sh MERRA-2 2016
-bash create_forcing.sh MERRA-2 2017
-bash create_forcing.sh MERRA-2 2018
-bash create_forcing.sh MERRA-2 2019
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1980
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1981
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1982
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1983
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1984
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1985
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1986
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1987
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1988
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1989
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1990
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1991
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1992
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1993
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1994
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1995
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1996
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1997
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1998
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 1999
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2000
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2001
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2002
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2003
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2004
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2005
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2006
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2007
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2008
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2009
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2010
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2011
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2012
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2013
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2014
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2015
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2016
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2017
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2018
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2019
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2020
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2021
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2022
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2023
+export OUTPUTINTERVAL=0; bash create_forcing.sh ERA5 2024
