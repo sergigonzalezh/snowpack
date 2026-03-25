@@ -28,14 +28,15 @@
 set -euo pipefail
 export TZ=UTC
 
-# ---- Configuration ----
+# ---- Configuration (all paths converted to absolute) ----
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SNOWPACK_BIN="/users/gsergi/ALPINE3D/bin/snowpack"
-FINAL_SNO_DIR="./Results/final_sno"
-SMET_DIR="./smet"
-CFG_DIR="./cfgfiles"
-BASE_INI="./base.ini"
-EXTRACT_INI="./extract_dates.ini"
-TIME_SHIFT_SCRIPT="../../Source/snowpack/tools/timeshift_sno_files.sh"
+FINAL_SNO_DIR="$(cd "${SCRIPT_DIR}/Results/final_sno" && pwd)"
+SMET_DIR="$(cd "${SCRIPT_DIR}/smet" && pwd)"
+CFG_DIR="$(cd "${SCRIPT_DIR}/cfgfiles" && pwd)"
+BASE_INI="${SCRIPT_DIR}/base.ini"
+EXTRACT_INI="${SCRIPT_DIR}/extract_dates.ini"
+TIME_SHIFT_SCRIPT="$(cd "${SCRIPT_DIR}/../../Source/snowpack/tools" && pwd)/timeshift_sno_files.sh"
 START_DATE="1980-01-01T00:00"
 
 # ---- Parse arguments ----
@@ -48,7 +49,7 @@ if [ $# -lt 1 ]; then
 fi
 
 DATES_FILE="$1"
-OUTPUT_DIR="${2:-./past_dates_output}"
+OUTPUT_DIR="$(readlink -f "${2:-./past_dates_output}")"
 
 if [ ! -f "${DATES_FILE}" ]; then
     echo "ERROR: dates file not found: ${DATES_FILE}"

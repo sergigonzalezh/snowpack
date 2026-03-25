@@ -30,12 +30,13 @@
 set -euo pipefail
 export TZ=UTC
 
-# ---- Configuration ----
+# ---- Configuration (all paths converted to absolute) ----
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SNOWPACK_BIN="/users/gsergi/ALPINE3D/bin/snowpack"
-FINAL_SNO_DIR="./Results/final_sno"
-CFG_DIR="./cfgfiles"
-BASE_INI="./base.ini"
-EXTRACT_INI="./extract_dates.ini"
+FINAL_SNO_DIR="$(cd "${SCRIPT_DIR}/Results/final_sno" && pwd)"
+CFG_DIR="$(cd "${SCRIPT_DIR}/cfgfiles" && pwd)"
+BASE_INI="${SCRIPT_DIR}/base.ini"
+EXTRACT_INI="${SCRIPT_DIR}/extract_dates.ini"
 
 # ---- Parse arguments ----
 if [ $# -lt 2 ]; then
@@ -48,8 +49,8 @@ if [ $# -lt 2 ]; then
 fi
 
 DATES_FILE="$1"
-FUTURE_SMET_DIR="$2"
-OUTPUT_DIR="${3:-./future_dates_output}"
+FUTURE_SMET_DIR="$(readlink -f "$2")"
+OUTPUT_DIR="$(readlink -f "${3:-./future_dates_output}")"
 
 if [ ! -f "${DATES_FILE}" ]; then
     echo "ERROR: dates file not found: ${DATES_FILE}"
