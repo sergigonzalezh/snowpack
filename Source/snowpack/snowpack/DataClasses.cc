@@ -2834,6 +2834,7 @@ void SnowStation::CheckMaxSimHS(const double& max_simulated_hs) {
 						Ndata[i-i_offset].z -= dH;		// Correct nodal position
 					}
 					Ndata[nElems-i_offset] = Ndata[nElems];		// Take care of the remaining top node
+					Ndata[nElems-i_offset].z -= dH;		// shift the top node too, keep nodes consistent with element lengths
 					resize(i-i_offset);
 					cH -= dH;					// Correct calculated snow height
 				}
